@@ -19,13 +19,9 @@ int main(void) {
 
     /* Insert your solution below */
 	unsigned char temp_val = 0x00;
-	unsigned char temp_val_2 = 0x00;
-	//unsigned char orig_val = 0x00;
 	unsigned char end_level_bits = 0x00;
 	while (1) {
-		//orig_val = PINA;
-		temp_val = PINA & 0x0F;    //Lower nibble of PINA
-		temp_val_2 = PINA & 0xF0; // Upper nibble of PINA
+		temp_val = PINA;
 		
 		if (temp_val < 0x03) { //LVL1-2
 			end_level_bits = 0x30; //PC5 +pc6 low level light
@@ -45,14 +41,16 @@ int main(void) {
 		else if (temp_val <= 0x0F) { //LVL13-15
 			end_level_bits = 0x1F;
 		}
-
-
-
-		if (temp_val_2 & 0x60) { 
-
-		}
-
 		
+		if (temp_val & 0x10) { //Ignition check
+
+			if (temp_val & 0x20) { //Driver check
+
+				if (!(temp_val & 0x40) { //Seatbelt check
+					end_level_bits |= 0x80;
+				}
+			}
+		}
 
 		PORTC = end_level_bits;
 	}

@@ -1,7 +1,7 @@
 /*	Author: nmoor004
  *  Partner(s) Name: 
  *	Lab Section: 022	
- *	Assignment: Lab # 3 Exercise # 3
+ *	Assignment: Lab # 3 Exercise #
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -19,13 +19,9 @@ int main(void) {
 
     /* Insert your solution below */
 	unsigned char temp_val = 0x00;
-	unsigned char temp_val_2 = 0x00;
-	//unsigned char orig_val = 0x00;
 	unsigned char end_level_bits = 0x00;
 	while (1) {
-		//orig_val = PINA;
-		temp_val = PINA & 0x0F;    //Lower nibble of PINA
-		temp_val_2 = PINA & 0xF0; // Upper nibble of PINA
+		temp_val = PINA;
 		
 		if (temp_val < 0x03) { //LVL1-2
 			end_level_bits = 0x30; //PC5 +pc6 low level light
@@ -45,15 +41,7 @@ int main(void) {
 		else if (temp_val <= 0x0F) { //LVL13-15
 			end_level_bits = 0x1F;
 		}
-
-
-
-		if (temp_val_2 & 0x60) { 
-
-		}
-
 		
-
 		PORTC = end_level_bits;
 	}
 	return 1;
