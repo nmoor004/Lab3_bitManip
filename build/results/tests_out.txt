@@ -5,6 +5,6 @@ Running all tests..."
 
 "PINA: 0x02 => PORTC: 0x30"..."PINA: 0x04 => PORTC: 0x30"..."PINA: 0x06 => PORTC: 0x18"..."PINA: 0x09 => PORTC: 0x1C"..."PINA: 0x0C => PORTC: 0x1E"..."PINA: 0x0F => PORTC: 0x1F"..."PINA: 0x6F => PORTC: 0x9F"...
 	Expected 0x9f 
-	PORTC '0x800028:	0x1f
-"PINA: 0x7F => PORTC: 0x0F"...======================================================
+	PORTC '0x800028:	0x9f
+"PINA: 0x7F => PORTC: 0x1F"...======================================================
 Quitting: Remote doesn't know how to detach

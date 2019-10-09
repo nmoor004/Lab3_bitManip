@@ -42,13 +42,15 @@ int main(void) {
 			end_level_bits = 0x1E; //PC5-PC1
 		}
 		else if (least_nibble <= 0x0F) { //LVL13-15
-			end_level_bits = 0x1F;
+			end_level_bits = 0x1F;  //PC5-PC0
 		}
 
-		if (greatest_nibble && 0x60) {
-				if (!(greatest_nibble) && 0x40) {
-				end_level_bits |= 0x80;
-				}
+		if (greatest_nibble && 0x10) {
+			if (greatest_nibble == 0x60) {
+		
+				end_level_bits = end_level_bits | 0x80;
+			}
+			
 		}
 		
 		PORTC = end_level_bits;
