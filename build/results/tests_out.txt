@@ -1,7 +1,9 @@
-Breakpoint 1 at 0xee: file source/main.c, line 24.
+Breakpoint 1 at 0x120: file source/main.c, line 49.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"PINA: 0x12 => PORTB: 0x01, PORTC: 0x20"..."PINA: 0xA2 => PORTB: 0x0A, PORTC: 0x20"..."PINA: 0x00 => PORTB: 0x00, PORTC: 0x00"..."PINA: 0x11 => PORTB: 0x11, PORTC: 0x11"...======================================================
+"PIND: 0x01 => PORTC: 0x01"..."PIND: 0x02 => PORTC: 0x02"..."PIND: 0x03 => PORTC: 0x03"...Completed function check. DA_COUNTA is working correctly.
+
+"PINA: 0x01, PIND: 0x00 => PORTC: 0x00, PORTB = 0x01"..."PINA: 0x01, PIND: 0x02 => PORTC: 0x02, PORTB: 0x05"..."PINA: 0x01, PIND: 0x03 => PORTC: 0x03, PORTB: 0x05"...======================================================
 Quitting: Remote doesn't know how to detach
