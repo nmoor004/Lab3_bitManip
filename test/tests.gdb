@@ -26,49 +26,41 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 
-test "PIND: 0x01 => PORTC: 0x01" 
-setPIND 0x01
+test "PINA: 0x01, PINB: 0x00 => PORTC: 0x01"
+setPINA 0x01
+setPINB 0x00
 continue 5
 expectPORTC 0x01
 checkResult
 
-test "PIND: 0x02 => PORTC: 0x02" 
-setPIND 0x02
+test "PINA: 0x03, PINB: 0x00 => PORTC: 0x02"
+setPINA 0x03
+setPINB 0x00
 continue 5
 expectPORTC 0x02
 checkResult
 
-test "PIND: 0x03 => PORTC: 0x03" 
-setPIND 0x03
-continue 5
-expectPORTC 0x03
-checkResult
-
-echo Completed function check. DA_COUNTA is working correctly.\n\n
-
-test "PINA: 0x01, PIND: 0x00 => PORTC: 0x00, PORTB = 0x01"
+test "PINA: 0x01, PINB: 0x01 => PORTC: 0x02"
 setPINA 0x01
-setPIND 0x00
+setPINB 0x01
 continue 5
-expectPORTC 0x00
-expectPORTB 0x01
-checkResult
-
-test "PINA: 0x01, PIND: 0x02 => PORTC: 0x02, PORTB: 0x05"
-setPINA 0x01
-setPIND 0x02
-continue
 expectPORTC 0x02
-expectPORTB 0x01
 checkResult
 
-test "PINA: 0x01, PIND: 0x03 => PORTC: 0x03, PORTB: 0x05"
-setPINA 0x01
-setPIND 0x03
-continue
+test "PINA 0x03, PINB: 0x01 => PORTC: 0x04"
+setPINA 0x03
+setPINB 0x01
+continue 5
 expectPORTC 0x03
-expectPORTB 0x05
 checkResult
+
+test "PINA: 0xFF, PINB: 0xFF => PORTC: 0x10"
+setPINA 0xFF
+setPINB 0xFF
+continue 5
+expectPORTC 0x10
+checkResult
+
 
 
 
