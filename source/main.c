@@ -1,7 +1,7 @@
 /*	Author: nmoor004
  *  Partner(s) Name: 
  *	Lab Section: 022	
- *	Assignment: Lab # 3 Exercise # 1
+ *	Assignment: Lab # 3 Exercise # 5
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -12,104 +12,63 @@
 #include "simAVRHeader.h"
 #endif
 
-
-int DA_COUNTA(unsigned char DA_BITZ_A, unsigned char DA_BITZ_B) {
+int DA_COUNTA(unsigned char DA_BITZ, unsigned char DA_EXTRA_BIT) { //Returns int sum which is the decimal version of binary input
+	int binary_to_decimal = 1;
 	int sum = 0;
-	while (DA_BITZ_A != 0x00) { // Takes bits, counts if bit is 1, then right shifts for next bit
-		if ((DA_BITZ_A & 0x01) == 0x01) {
-			sum += 1;
-		} 
-		DA_BITZ_A >>= 1;
 
+	if (DA_EXTRA_BIT == 0x01) { //Using the 0th bith
+		sum += binary_to_decimal;
+		binary_to_decimal *= 2;
 	}
 
-	while (DA_BITZ_B != 0x00) {
-		if ((DA_BITZ_B & 0x01) == 0x01) {
-			sum += 1;
+	while (DA_BITZ != 0x00) { //Adds current binary to decimal place value and then right shifts
+		if ((DA_BITZ & 0x01) == 0x01) {
+			sum += binary_to_decimal;
+
 		}
-		DA_BITZ_B >>= 1;
+		binary_to_decimal *= 2; //Switch to next bit place
+		DA_BITZ >>= 1; //Right shift
+
 	}
-	
+
 return sum;
 }
 
-
 int main(void) {
     /* Insert DDR and PORT initializations */
-	DDRA = 0x00;	PORTA = 0xFF;   //input 
-	DDRB = 0x00;	PORTB = 0xFF;  //input
-	DDRC = 0xFF;	PORTC = 0x00; //output 
+	DDRA = 0x00; PORTA = 0xFF;     //input for 0th bit of 9-bit
+	DDRB = 0xFF; PORTB = 0x00;    //output for 0th bit of 9-bit
+	DDRC = 0xFF; PORTC = 0x00;   //output for bits 9 to 1 of 9-bit
+	DDRD = 0x00; PORTD = 0xFF;  //input for bits 9 to 1 of 9-bit
+
 
     /* Insert your solution below */
-	unsigned char input_val_a;
-	unsigned char input_val_b;
-	int num_bits = 0;
+	unsigned char input_val;
+	unsigned char zeroth_val;
+	int test;
+	while (1) { // Take input value, find decimal version and determine range, 
+		   // and then output the input value plus any other signals
+		input_val = PIND;
+		zeroth_val = PINA;
 
-	while (1) {
-		input_val_a = PINA; 
-		input_val_b = PINB;
-		num_bits = DA_COUNTA(input_val_a, input_val_b);
-		
-		 //Brute force this because no brain
+		test = DA_COUNTA(input_val, zeroth_val);
 
-		if (num_bits == 1) {
-			PORTC = 0x01;
+		if (test >= 70) {
+			PORTC = PIND;
+			PORTB = (PINA |0x02); //PB1 = 1	
 		}
-		else if (num_bits == 2) {
-			PORTC = 0x02;
-		}
-		else if (num_bits == 3) {
-			PORTC = 0x03;
-		}
-		else if (num_bits == 4) {
-			PORTC = 0x04;
-		}
-		else if (num_bits == 5) {
-			PORTC = 0x05;
-		}
-		else if (num_bits == 6) {
-			PORTC = 0x06;
-		}
-		else if (num_bits == 7) {
-			PORTC = 0x07;
-		}
-		else if (num_bits == 8) {
-			PORTC = 0x08;
-		}
-		else if (num_bits == 9) {
-			PORTC = 0x09;
-		}
-		else if (num_bits == 10) {
-			PORTC = 0x0A;
-		}
-		else if (num_bits == 11) {
-			PORTC = 0x0B;
-		}
-		else if (num_bits == 12) {
-			PORTC = 0x0C;
-		}
-		else if (num_bits == 13) {
-			PORTC = 0x0D;
-		}
-		else if (num_bits == 14) {
-			PORTC = 0x0E;
-		}
-		else if (num_bits == 15) {
-			PORTC = 0x0F;
-		}
-		else if (num_bits == 16) {
-			PORTC = 0x10; //The max possible bits in these two ports.
+		else if (test > 5) {
+			PORTC = PIND;
+			PORTB = (PINA | 0x04); //PB2 = 1
 		}
 		else {
-			PORTC = 0x00; //Either you have zero bits or something is terribly wrong.
+			PORTC = PIND;
+			PORTB = PINA;
 		}
 
-
-
+		
+		
+		
 	}
-
-return 1;
+	return 1;
 }
-
-
-

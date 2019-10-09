@@ -54,10 +54,10 @@ expectPORTC 0x00
 expectPORTB 0x01
 checkResult
 
-test "PINA: 0x01, PIND: 0x02 => PORTC: 0x02, PORTB: 0x05"
+test "PINA: 0x01, PIND: 0x02 => PORTC: 0x02, PORTB: 0x01"
 setPINA 0x01
 setPIND 0x02
-continue
+continue 1
 expectPORTC 0x02
 expectPORTB 0x01
 checkResult
@@ -65,11 +65,17 @@ checkResult
 test "PINA: 0x01, PIND: 0x03 => PORTC: 0x03, PORTB: 0x05"
 setPINA 0x01
 setPIND 0x03
-continue
+continue 1
 expectPORTC 0x03
 expectPORTB 0x05
 checkResult
 
+test "PINA: 0x01, PIND: 0x3F => PORTC: 0x3F, PORTB: 0x03" 
+setPINA 0x01
+setPIND 0x3F
+continue 1
+expectPORTC 0x3F
+expectPORTB 0x03
 
 
 # Report on how many tests passed/tests ran
