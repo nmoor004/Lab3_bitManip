@@ -1,7 +1,7 @@
 /*	Author: nmoor004
  *  Partner(s) Name: 
  *	Lab Section: 022	
- *	Assignment: Lab # 3 Exercise #
+ *	Assignment: Lab # 3 Exercise # 3
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -14,10 +14,47 @@
 
 int main(void) {
     /* Insert DDR and PORT initializations */
+	DDRA = 0x00; PORTA = 0xFF;  //input
+	DDRC = 0xFF; PORTC = 0x00; //output
 
     /* Insert your solution below */
-    while (1) {
+	unsigned char temp_val = 0x00;
+	unsigned char temp_val_2 = 0x00;
+	//unsigned char orig_val = 0x00;
+	unsigned char end_level_bits = 0x00;
+	while (1) {
+		//orig_val = PINA;
+		temp_val = PINA & 0x0F;    //Lower nibble of PINA
+		temp_val_2 = PINA & 0xF0; // Upper nibble of PINA
+		
+		if (temp_val < 0x03) { //LVL1-2
+			end_level_bits = 0x30; //PC5 +pc6 low level light
+		}
+		else if (temp_val < 0x05) { //LVL3-4
+			end_level_bits = 0x38; //PC5-PC4 +pc6 low level light
+		}
+		else if (temp_val < 0x07) { //LVL5-6
+			end_level_bits = 0x18; //PC5-PC3
+		}
+		else if (temp_val < 0x0A) { //LVL7-9
+			end_level_bits = 0x1C; //PC5-PC2
+		}
+		else if (temp_val < 0x0D) { //LVL10-12
+			end_level_bits = 0x1E; //PC5-PC1
+		}
+		else if (temp_val <= 0x0F) { //LVL13-15
+			end_level_bits = 0x1F;
+		}
 
-    }
-    return 1;
+
+
+		if (temp_val_2 & 0x60) { 
+
+		}
+
+		
+
+		PORTC = end_level_bits;
+	}
+	return 1;
 }
